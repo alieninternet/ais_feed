@@ -6,6 +6,13 @@ ais_feed_missing_simplexml => SimpleXML is missing from PHP
 ais_feed_nested => Feed syndication cannot be nested
 ais_feed_unknown_type => Unable to determine feed type
 ais_feed_url_load_failed => Unable to load feed
+#@language de
+ais_feed_malformed_xml => Fehlerhafte Feed-XML
+ais_feed_malformed_url => Ungültige oder fehlerhafte Feed-URL
+ais_feed_missing_simplexml => SimpleXML fehlt in PHP
+ais_feed_nested => Feed-Syndikation kann nicht verschachtelt sein
+ais_feed_unknown_type => Feed-Typ kann nicht bestimmt werden
+ais_feed_url_load_failed => Feed konnte nicht geladen werden
 #@language fr
 ais_feed_malformed_xml => XML de flux mal formé
 ais_feed_malformed_url => URL de flux invalide ou mal formée
