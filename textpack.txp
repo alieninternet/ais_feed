@@ -1,0 +1,8 @@
+#@ais_feed
+#@language en, en-gb, en-us
+ais_feed_malformed_xml => Malformed feed XML
+ais_feed_malformed_url => Invalid or malformed feed URL
+ais_feed_missing_simplexml => SimpleXML is missing from PHP
+ais_feed_nested => Feed syndication cannot be nested
+ais_feed_unknown_type => Unable to determine feed type
+ais_feed_url_load_failed => Unable to load feed
