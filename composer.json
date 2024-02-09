@@ -1,0 +1,15 @@
+{
+  "name": "alieninternet/ais_feed",
+  "description": "Feed syndication for Textpattern",
+  "keywords": ["textpattern", "plugin", "rss", "multiple", "atom"],
+  "homepage": "https://github.com/alieninternet/ais_feed",
+  "license": "GPL-3.0",
+  "type": "textpattern-plugin",
+  "support": {
+    "issues": "https://github.com/alieninternet/ais_feed/issues",
+    "source": "https://github.com/alieninternet/ais_feed"
+  },
+  "require": {
+    "textpattern/lock": ">=4.8.0",
+    "textpattern/installer": "*"
+  }
