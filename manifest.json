@@ -1,0 +1,9 @@
+{
+ "author": "Ashley Butcher (Alien Internet Services)",
+ "author_uri": "http://www.alien.net.au/",
+ "version": "0.1",
+ "description": "Feed syndication",
+ "type": 0,
+ "order": 5,
+ "flags": 0
+}
