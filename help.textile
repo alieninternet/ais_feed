@@ -6,9 +6,10 @@ p. *Version:* 0.1
 
 h2. List of features
 
-* Syndicate Atom and RSS feeds
+* Support for Atom and RSS feeds
 * Allow querying any field in the feed with XPath queries
-* Feed data can be reformatted as needed
+* Feed data can be formatted as needed
+* No dependencies - no need for libraries, making installation simple
 
 h2. Minimum requirements
 
