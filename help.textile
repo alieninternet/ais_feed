@@ -127,9 +127,62 @@ bc. Example code
 
 h3. Example 3 - YouTube
 
-p. TODO
+p. It's relatively easy to fetch videos from YouTube as an Atom feed is provided per channel. This functionality is old, but as of 2024 it is still functional and entirely servicable for syndication.
 
-bc. Example code
+p. This is ideal if you wish to integrate vlogs or other video content in a serialised form, however at the time of writing only the latest 15 videos are included in the feed.
+
+p. You can either output a feed for an entire YouTube channel, or feed for a particular playlist. An unlisted playlist may be an interesting solution to provide a way to curate videos shown on your Textpattern site from within the YouTube studio.
+
+h4. Feed URL for YouTube channel
+
+bc. https://www.youtube.com/feeds/videos.xml?channel_id=<your_channel_id>
+
+p. To fetch a feed for an entire YouTube channel, you will first need to determine your channel ID. The channel ID is always a sequence of case-sensitive alphanumeric characters, often with some printable symbols included.
+
+p. For example, the _YouTube_ channel has channel ID @UCBR8-60-B28hp2BmDPdntcQ@, so the feed URL is as follows:
+
+bc. https://www.youtube.com/feeds/videos.xml?channel_id=UCBR8-60-B28hp2BmDPdntcQ
+
+h4. Feed URL for YouTube playlist
+
+bc. https://www.youtube.com/feeds/videos.xml?playlist_id=<your_playlist_id>
+
+p. To fetch a feed for a YouTube playlist, you need to determine the playlist ID. This is often within the URL of the loaded playlist, or included in the URL of a video playing when played from that playlist. The playlist ID is a sequence of case-sensitive alphanumeric characters and symbols with the prefix @PL@.
+
+p. For example, a playlist with the ID @PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh@ has the following feed URL:
+
+bc. https://www.youtube.com/feeds/videos.xml?playlist_id=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh
+
+h4. Example code
+
+p. The following example fetches videos from a YouTube playlist and provides some basic formatting. Note that it uses XPath queries to obtain some of the custom fields provided by the feed.
+
+bc. <section>
+ <txp:ais_feed feed="https://www.youtube.com/feeds/videos.xml?playlist_id=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh">
+  <article class="article youtubefeed">
+   <header>
+    <txp:ais_feed_item_link target="_blank">
+     <img src="<txp:ais_feed_item_xpath xpath="./media:group/media:thumbnail/@url" />" />
+     </txp:ais_feed_item_link>
+    <div data-ytvid="<txp:ais_feed_item_xpath xpath="./yt:videoId" />">
+     <!-- Some JavaScript can be used to load a YouTube video player here, 
+          using CSS to overlay over the top of the thumbnail, 
+	  but that is beyond the scope of this documentation -->
+    </div>
+    <h2>
+     <txp:ais_feed_item_link target="_blank">
+      <txp:ais_feed_item_title />
+     </txp:ais_feed_item_link>
+    </h2>
+   </header>
+   <footer>
+    <time datetime="<txp:ais_feed_item_posted format="iso8601" />">
+     <txp:ais_feed_item_posted format="%B %Y" />
+    </time>
+   </footer>
+  </article>
+ </txp:ais_feed>
+</section>
 
 h2. Acknowledgements
 
