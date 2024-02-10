@@ -589,7 +589,13 @@ class ais_feed_rss extends ais_feed
      */
     protected function fetchArticleIterator(): Iterator
     {
-	return new ArrayIterator($this->feedXML->item);
+	$result = $this->feedXML->xpath('/rss/channel/item');
+	
+	if (is_array($result)) {
+	    return new ArrayIterator($result);
+	}
+	
+        return new ArrayIterator([]);
     }
 
 
@@ -614,8 +620,7 @@ class ais_feed_rss extends ais_feed
      */
     protected function fetchItemTitle(): string
     {
-	// TODO: This
-	return 'RSS-TITLE';
+	return $this->fetchItemXPath('./title');
     }
     
     
@@ -624,8 +629,7 @@ class ais_feed_rss extends ais_feed
      */
     protected function fetchItemURL(): string
     {
-	// TODO: This
-	return 'RSS-URL';
+	return $this->fetchItemXPath('./link');
     }
 }
 
