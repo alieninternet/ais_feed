@@ -133,7 +133,8 @@ switch (txpinterface) {
 
 		    // Add target frame attribute if set
 		    if (isset($target) &&
-			is_string($target)) {
+			is_string($target) &&
+			!empty($target)) {
 			$result .= (' target="' . $target . '"');
 		    }
 		    
