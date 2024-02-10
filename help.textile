@@ -29,7 +29,13 @@ p. To uninstall the plugin, simply delete the plugin from within the Textpattern
 
 h2. Conceptual overview
 
-p. TODO
+p. Conceptually adding items from a feed (such as an RSS or Atom feed) functions similar to building an article list.
+
+p. The @ais_feed@ tag acts as a container, specifying the feed to syndicate, and the contents within this container is repeated for each item in the feed (i.e. per article). The contents of this tag contains the formatting required to present each article as required.
+
+p. Short-cut tags are provided for obtaining common values from each item in the feed, such as the title or URL, but almost any value from within the feed can be easily accessed by way of an XPath query, allowing full flexibility.
+
+p. This allows you to build a list of items from the feed, and format these items as needed.
 
 h2. Security
 
