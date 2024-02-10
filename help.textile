@@ -131,13 +131,7 @@ bc. <ul>
  </txp:ais_feed>
 </ul>
 
-h3. Example 2 - Google Calendar
-
-p. TODO
-
-bc. Example code
-
-h3. Example 3 - YouTube
+h3. Example 2 - YouTube
 
 p. It's relatively easy to fetch videos from YouTube as an Atom feed is provided per channel. This functionality is old, but as of 2024 it is still functional and entirely servicable for syndication.
 
