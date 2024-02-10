@@ -1,27 +1,27 @@
 h1. ais_feed
 
-p. RSS/Atom feed syndication for Textpattern.
+p. Feed syndication for Textpattern.
 
 p. *Version:* 0.1
 
 h2. List of features
 
 * Syndicate Atom and RSS feeds
-* Allow querying any field in the feed with xpath queries
+* Allow querying any field in the feed with XPath queries
 * Feed data can be reformatted as needed
 
 h2. Minimum requirements
 
 p. This plugin has the following minimum requirements (and/or dependencies):
 
-* Textpattern 4.8 (it might work on older versions but I haven't tested)
+* Textpattern 4.8.x (it might work on older versions but I haven't tested)
 * PHP 7.4
 
 h2. Installation/Uninstallation
 
 h3. Installation
 
-p. Download the plugin from TODO, paste the code blob into the Textpattern _Admin->Plugins_ pane, install, and enable the plugin.
+p. Download the plugin from ["$":https://github.com/alieninternet/ais_feed/releases], paste the code blob into the Textpattern _Admin->Plugins_ pane, install, and enable the plugin.
 
 h3. Uninstallation
 
@@ -81,17 +81,25 @@ h3(tag). ais_feed_item_link
 
 h4. Syntax
 
+p. TODO
+
 h3(tag). ais_feed_item_posted
 
 h4. Syntax
+
+p. TODO
 
 h3(tag). ais_feed_item_title
 
 h4. Syntax
 
+p. TODO
+
 h3(tag). ais_feed_item_xpath
 
 h4. Syntax
+
+p. TODO
 
 h2. Troubleshooting
 
@@ -99,17 +107,19 @@ p. TODO
 
 h2. Examples
 
-h3. Example 1 TODO example of syndicating article headings from another blog
+h3. Example 1 - News feed
 
 p. TODO
 
 bc. Example code
 
-h3. Example 2 TODO example of syndicating calendar items from a Google calendar feed
+h3. Example 2 - Google Calendar
 
 p. TODO
 
-h3. Example 3 TODO example of including youtube videos from a youtube channel - question: can you have a feed just for a playlist?
+bc. Example code
+
+h3. Example 3 - YouTube
 
 p. TODO
 
