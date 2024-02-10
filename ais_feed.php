@@ -240,6 +240,7 @@ abstract class ais_feed implements Iterator
     protected ?string $title = null;
     protected ?string $itemTitle = null;
     protected ?string $itemURL = null;
+    protected array $xpathCache = [];
     private Iterator $articleIterator;
     
     
@@ -352,8 +353,11 @@ abstract class ais_feed implements Iterator
      */
     public function getItemXPath(string $xpath): string
     {
-	// TODO: Cache in associative array
-	return $this->fetchItemXPath($xpath);
+	if (!array_key_exists($xpath, $this->xpathCache)) {
+	    $this->xpathCache[$xpath] = $this->fetchItemXPath($xpath);
+	}
+	
+	return $this->xpathCache[$xpath];
     }
     
     
@@ -423,6 +427,7 @@ abstract class ais_feed implements Iterator
     {
 	$this->itemTitle = null;
 	$this->itemURL = null;
+	$this->xpathCache = [];
     }
     
         
