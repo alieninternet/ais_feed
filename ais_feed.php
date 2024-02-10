@@ -459,7 +459,6 @@ abstract class ais_feed implements Iterator
 			
 			$errorMessage = gTxt('ais_feed_unknown_type');
 		    } else {
-			// TODO: Cannot load feed XML
 			$errorMessage = gTxt('ais_feed_malformed_xml');
 		    }
 		} else {
