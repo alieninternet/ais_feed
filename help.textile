@@ -115,9 +115,21 @@ h2. Examples
 
 h3. Example 1 - News feed
 
-p. TODO
+p. The most simple example would be to list articles from an RSS feed. This could be articles from a news website, a podcast, or anything that provides a feed.
 
-bc. Example code
+p. In the following example, the titles of the first 10 articles are shown in an unordered list, with each title being presented as a link to that article. This example will also show an error if the feed could not be loaded.
+
+bc. <ul>
+ <txp:ais_feed feed="https://www.politico.com/rss/politicopicks.xml" limit="10">
+  <li>
+   <txp:ais_feed_item_link>
+    <txp:ais_feed_item_title />
+   </txp:ais_feed_item_link>
+  </li>
+ <txp:else />
+  <li>Unable to load articles.</li>
+ </txp:ais_feed>
+</ul>
 
 h3. Example 2 - Google Calendar
 
@@ -155,7 +167,7 @@ bc. https://www.youtube.com/feeds/videos.xml?playlist_id=PLuhl9TnQPDCnWIhy_KSbtF
 
 h4. Example code
 
-p. The following example fetches videos from a YouTube playlist and provides some basic formatting. Note that it uses XPath queries to obtain some of the custom fields provided by the feed.
+p. The following example fetches videos from a YouTube playlist and provides some basic formatting. Note that it uses XPath queries to obtain some of the custom fields provided by the feed. The link to the YouTube video will open in a new browser tab.
 
 bc. <section>
  <txp:ais_feed feed="https://www.youtube.com/feeds/videos.xml?playlist_id=PLuhl9TnQPDCnWIhy_KSbtFwXVQnNvgfSh">
