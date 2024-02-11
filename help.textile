@@ -106,6 +106,10 @@ h4. Attributes
 
 p. The following attributes can be used with this tag in _container_ form.
 
+- @class="text"@ := The class attribute for the anchor tag.
+
+- @id="text"@ := The id attribute for the anchor tag.
+
 - @style="text"@ := Add inline style (discouraged).
 
 - @target="text"@ := Add a _target_ attribute to redirect the link to another frame/browser. 

@@ -100,6 +100,8 @@ switch (txpinterface) {
     function ais_feed_item_link(array $atts, ?string $thing = null) : string
     {
 	extract(lAtts(array(
+	    'class' => '',   // Class attribute
+	    'id' => '',      // ID attribute
 	    'style' => '',   // Inline CSS
 	    'target' => ''   // Target frame
 	), $atts));
@@ -114,6 +116,7 @@ switch (txpinterface) {
 	    if (filter_var($itemURL, FILTER_VALIDATE_URL) !== false) {
 		// Container mode?
 		if (isset($thing)) {
+		    // TODO: Handle if URL is empty/missing
 		    // Open the anchor tag
 		    $result = ('<a href="' . $itemURL . '"');
 
@@ -122,6 +125,20 @@ switch (txpinterface) {
 		    if (isset($itemTitle) &&
 			!empty($itemTitle)) {
 			$result .= (' title="' . $itemTitle .'"');
+		    }
+
+		    // Add class if set
+		    if (isset($id) &&
+			is_string($id) &&
+			!empty($id)) {
+			$result .= (' id="' . $id . '"');
+		    }
+		    
+		    // Add class if set
+		    if (isset($class) &&
+			is_string($class) &&
+			!empty($class)) {
+			$result .= (' class="' . $class . '"');
 		    }
 		    
 		    // Add inline CSS if set
@@ -190,7 +207,8 @@ switch (txpinterface) {
 
 	return '';
     }
-    
+// TODO: ADD FUNCTION TO RETRIEVE THE ID OF THE ARTICLE
+// TODO: ADD FUNCTION TO PERFORM AN XPATH "IF"
     
     /**
      * Fetch a feed item xpath query
