@@ -91,6 +91,25 @@ switch (txpinterface) {
     
     
     /**
+     * Fetch a feed item ID
+     *
+     * @param  array  $atts  Tag attribute name-value pairs
+     * @return string
+     */
+    function ais_feed_item_id(array $atts) : string
+    {
+	// This is only useful in a feed context
+	if (ais_feed_state::inFeed()) {
+	    return ais_feed_state::getFeed()->getItemID();
+	}
+
+	// TODO: Output error
+	
+	return '';
+    }
+    
+    
+    /**
      * Conditional tag based on an XPath query
      *
      * @param  array  $atts  Tag attribute name-value pairs
@@ -239,7 +258,7 @@ switch (txpinterface) {
 	
 	return '';
     }
-// TODO: ADD FUNCTION TO RETRIEVE THE ID OF THE ARTICLE
+
     
     /**
      * Fetch a feed item xpath query
@@ -291,6 +310,7 @@ abstract class ais_feed implements Iterator
 {
     protected SimpleXMLElement $feedXML;
     protected ?string $title = null;
+    protected ?string $itemID = null;
     protected ?string $itemTitle = null;
     protected ?string $itemURL = null;
     protected array $xpathCache = [];
@@ -325,6 +345,12 @@ abstract class ais_feed implements Iterator
      * @return The title of the feed
      */
     abstract protected function fetchTitle(): string;
+
+    
+    /**
+     * Fetch the current item's ID
+     */
+    abstract protected function fetchItemID(): string;
 
     
     /**
@@ -373,6 +399,19 @@ abstract class ais_feed implements Iterator
 	}
 	
 	return $this->title;
+    }
+
+    
+    /**
+     * Get the current item's ID
+     */
+    public function getItemID(): string
+    {
+	if (!isset($this->itemID)) {
+	    $this->itemID = $this->fetchItemID();
+	}
+
+	return $this->itemID;
     }
 
     
@@ -514,6 +553,7 @@ abstract class ais_feed implements Iterator
      */
     public function resetItemVars()
     {
+	$this->itemID = null;
 	$this->itemTitle = null;
 	$this->itemURL = null;
 	$this->xpathCache = [];
@@ -629,6 +669,15 @@ class ais_feed_atom extends ais_feed
 
     
     /**
+     * Fetch the current item's ID
+     */
+    protected function fetchItemID(): string
+    {
+	return $this->fetchItemXPath('./atom:id');
+    }
+
+    
+    /**
      * Fetch the current item's title
      */
     protected function fetchItemTitle(): string
@@ -702,6 +751,15 @@ class ais_feed_rss extends ais_feed
 	}
 	
 	return '';
+    }
+
+    
+    /**
+     * Fetch the current item's ID
+     */
+    protected function fetchItemID(): string
+    {
+	return $this->fetchItemXPath('./guid');
     }
 
     
