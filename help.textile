@@ -56,7 +56,9 @@ p. When used as a _single_ tag, the name of the feed is returned.
 
 bc. <txp:ais_feed feed="https://example.com/feed.xml" />
 
-p. When used as a _container_ tag, the items (articles) in the feed will be iterated over, and the contents output once per item. Both beginning and end tags must be used. 
+p. When used as a _container_ tag, the items (articles) in the feed will be iterated over, and the contents output once per item. Both beginning and end tags must be used.
+
+p. The tag can function as a _conditional_ tag, where an alternative output can be made if fetching the feed has failed.
 
 bc. <txp:ais_feed feed="https://example.com/feed.xml">
    ...
@@ -257,7 +259,11 @@ p. There is more you can do with XPath queries, including conditional queries ba
 
 h2. Troubleshooting
 
-p. TODO
+p. When your Textpattern site is configured in _Live_ mode, no errors will be output, however switching to _Development_ or _Testing_ modes will allow errors when fetching the feed to be output.
+
+p. If you have problems loading a feed, first ensure you are able to open the feed yourself. Check also that the feed is available from the server hosting your Textpattern site.
+
+p. At present there is no detailed logging sufficient enough for deep analysis of faults.
 
 h2. Examples
 
