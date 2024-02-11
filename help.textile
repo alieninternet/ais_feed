@@ -86,6 +86,32 @@ p. The following attributes can be used with this tag.
 
 - @limit="integer"@ := The maximum number of items to return from the feed. If the feed contains less items than this number, only those items will be returned. If this is omitted, the entire feed will be fetched.
 
+h3(tag). ais_feed_item_if_xpath
+
+h4. Syntax
+
+p. Used as a _conditional_ tag, this allows you to conditionally control output based on an XPath query. The context is relative to the current item (article).
+
+bc. <txp:ais_feed_item_if_xpath xpath="xpath_query">
+   ...
+   Output if XPath query has a result
+   ...
+<txp:else />
+   ...
+   Output if XPath query has no result (does not exist)
+   ...
+</txp:ais_feed_item_if_xpath>
+
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
+
+p. More about this is discussed in the section, _Performing XPath queries_.
+
+h4. Attributes
+
+p. The following attribute must be used with this tag.
+
+- @xpath="xpath_query"@ := The XPath query string to execute.
+
 h3(tag). ais_feed_item_link
 
 h4. Syntax
@@ -213,6 +239,14 @@ p. To extract an attribute, you can address it in the XPath query using the "@" 
 
 bc. <txp:ais_feed_item_xpath xpath="./foo:quux/foo:corge/@grault" />
 
+p. If you wish to conditionally control output, you can do so use a the @ais_feed_item_if_xpath@ tag to conditionally test an XPath query. The following example tests if @foo:baz@ has an attribute @qux@ with the value @1st@.
+
+bc. <txp:ais_feed_item_if_xpath path="./foo:baz[@qux='1st']">
+   First!
+<txp:else />
+   Not first!
+<txp:ais_feed_item_if_xpath>
+
 p. Bringing it all together, combined with other tags, you could format the output as follows:
 
 bc. <txp:ais_feed feed="http://example.com/Foo/feed.xml">
@@ -221,6 +255,11 @@ bc. <txp:ais_feed feed="http://example.com/Foo/feed.xml">
          <txp:ais_feed_item_link><txp:ais_feed_item_title /></txp:ais_feed_item_link>
       </h2>
       <p><txp:ais_feed_item_xpath xpath="./foo:baz" /></p>
+      <txp:ais_feed_item_if_xpath xpath="./foo:baz[@qux='1st']">
+         <p>First!</p>
+      <txp:else />
+         <p>Not first!</p>
+      </txp:ais_feed_item_if_xpath>
       <ul>
          <li>Grault = <txp:ais_feed_item_xpath xpath="./foo:quux/foo:corge/@grault /></li>
          <li>Qux = <txp:ais_feed_item_xpath xpath="./foo:baz/@qux" /></li>

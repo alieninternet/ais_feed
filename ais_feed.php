@@ -91,6 +91,31 @@ switch (txpinterface) {
     
     
     /**
+     * Conditional tag based on an XPath query
+     *
+     * @param  array  $atts  Tag attribute name-value pairs
+     * @param  string $thing Contained content
+     * @return string
+     */
+    function ais_feed_item_if_xpath(array $atts, ?string $thing = null) : string
+    {
+	extract(lAtts(array(
+	    'xpath' => ''    // XPath query
+	), $atts));
+	
+	// This is only useful in a feed context
+	if (ais_feed_state::inFeed() &&
+	    isset($xpath)) {
+	    return parse($thing, ais_feed_state::getFeed()->testItemXPath(strval($xpath)));
+	}
+	
+	// TODO: Output error
+
+	return '';
+    }
+    
+    
+    /**
      * Fetch a feed item link
      *
      * @param  array  $atts  Tag attribute name-value pairs
@@ -178,7 +203,9 @@ switch (txpinterface) {
 	    return parse($thing, false);
 	}
 	
-	return 'link';
+	// TODO: Output error
+
+	return '';
     }
     
     
@@ -208,10 +235,11 @@ switch (txpinterface) {
 	    return ais_feed_state::getFeed()->getItemTitle();
 	}
 
+	// TODO: Output error
+	
 	return '';
     }
 // TODO: ADD FUNCTION TO RETRIEVE THE ID OF THE ARTICLE
-// TODO: ADD FUNCTION TO PERFORM AN XPATH "IF"
     
     /**
      * Fetch a feed item xpath query
@@ -232,6 +260,8 @@ switch (txpinterface) {
 	    return ais_feed_state::getFeed()->getItemXPath(strval($xpath));
 	}
 
+	// TODO: Output error
+
 	return '';
     }
 
@@ -240,6 +270,7 @@ switch (txpinterface) {
     if (class_exists('\Textpattern\Tag\Registry')) {
 	\Txp::get('\Textpattern\Tag\Registry')
 	  ->register('ais_feed')
+	  ->register('ais_feed_item_if_xpath')
 	  ->register('ais_feed_item_link')
 	  ->register('ais_feed_item_posted')
 	  ->register('ais_feed_item_title')
@@ -263,6 +294,7 @@ abstract class ais_feed implements Iterator
     protected ?string $itemTitle = null;
     protected ?string $itemURL = null;
     protected array $xpathCache = [];
+    protected array $xpathTestCache = [];
     private Iterator $articleIterator;
     
     
@@ -381,6 +413,41 @@ abstract class ais_feed implements Iterator
 	
 	return $this->xpathCache[$xpath];
     }
+
+    
+    /**
+     * Fetch a value from the current item via an xpath query
+     */
+    protected function existItemXPath(string $xpath): bool
+    {
+	$xml = $this->current();
+	
+	if (isset($xml)) {
+	    $this->registerXPathNamespace($xml);
+
+	    $value = $xml->xpath($xpath);
+
+	    if (isset($value) &&
+		($value !== false)) {
+		return true;
+	    }
+	}
+
+	return false;
+    }
+
+    
+    /**
+     * Test a value from the current item based on an XPath query
+     */
+    public function testItemXPath(string $xpath): bool
+    {
+	if (!array_key_exists($xpath, $this->xpathTestCache)) {
+	    $this->xpathTestCache[$xpath] = $this->existItemXPath($xpath);
+	}
+	
+	return $this->xpathTestCache[$xpath];
+    }
     
     
     /**
@@ -450,6 +517,7 @@ abstract class ais_feed implements Iterator
 	$this->itemTitle = null;
 	$this->itemURL = null;
 	$this->xpathCache = [];
+	$this->xpathTestCache = [];
     }
     
         
