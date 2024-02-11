@@ -100,6 +100,8 @@ bc. <txp:ais_feed_item_link>
    ...
 </txp:ais_feed_item_link>
 
+p. If there is no URL to the current item available, the contents of this tag will be output without being wrapped in an anchor tag.
+
 p. This tag is only useful when contained within an @ais_feed@ tag (see above).
 
 h4. Attributes

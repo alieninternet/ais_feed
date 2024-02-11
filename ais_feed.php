@@ -116,52 +116,55 @@ switch (txpinterface) {
 	    if (filter_var($itemURL, FILTER_VALIDATE_URL) !== false) {
 		// Container mode?
 		if (isset($thing)) {
-		    // TODO: Handle if URL is empty/missing
-		    // Open the anchor tag
-		    $result = ('<a href="' . $itemURL . '"');
+		    if (!empty($itemURL)) {
+			// Open the anchor tag
+			$result = ('<a href="' . $itemURL . '"');
 
-		    // Add item title if we have it
-		    $itemTitle = $feed->getItemTitle();
-		    if (isset($itemTitle) &&
-			!empty($itemTitle)) {
-			$result .= (' title="' . $itemTitle .'"');
+			// Add item title if we have it
+			$itemTitle = $feed->getItemTitle();
+			if (isset($itemTitle) &&
+			    !empty($itemTitle)) {
+			    $result .= (' title="' . $itemTitle .'"');
+			}
+			
+			// Add class if set
+			if (isset($id) &&
+			    is_string($id) &&
+			    !empty($id)) {
+			    $result .= (' id="' . $id . '"');
+			}
+			
+			// Add class if set
+			if (isset($class) &&
+			    is_string($class) &&
+			    !empty($class)) {
+			    $result .= (' class="' . $class . '"');
+			}
+			
+			// Add inline CSS if set
+			if (isset($style) &&
+			    is_string($style) &&
+			    !empty($style)) {
+			    $result .= (' style="' . $style . '"');
+			}
+			
+			// Add target frame attribute if set
+			if (isset($target) &&
+			    is_string($target) &&
+			    !empty($target)) {
+			    $result .= (' target="' . $target . '"');
+			}
+			
+			$result .= '>';
 		    }
-
-		    // Add class if set
-		    if (isset($id) &&
-			is_string($id) &&
-			!empty($id)) {
-			$result .= (' id="' . $id . '"');
-		    }
-		    
-		    // Add class if set
-		    if (isset($class) &&
-			is_string($class) &&
-			!empty($class)) {
-			$result .= (' class="' . $class . '"');
-		    }
-		    
-		    // Add inline CSS if set
-		    if (isset($style) &&
-			is_string($style) &&
-			!empty($style)) {
-			$result .= (' style="' . $style . '"');
-		    }
-
-		    // Add target frame attribute if set
-		    if (isset($target) &&
-			is_string($target) &&
-			!empty($target)) {
-			$result .= (' target="' . $target . '"');
-		    }
-		    
-		    $result .= '>';
 		    
 		    // Parse the enclosed content
 		    $result .= parse($thing, true);
 		    
-		    // Close the tag
-		    $result .= '</a>';
+		    if (!empty($itemURL)) {
+			// Close the tag
+			$result .= '</a>';
+		    }
 		    
 		    return $result;
 		}
