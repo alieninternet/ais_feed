@@ -56,7 +56,7 @@ p. When used as a _single_ tag, the name of the feed is returned.
 
 bc. <txp:ais_feed feed="https://example.com/feed.xml" />
 
-p. When used as a _container_ tag, both beginning and end tags must be used. 
+p. When used as a _container_ tag, the items (articles) in the feed will be iterated over, and the contents output once per item. Both beginning and end tags must be used. 
 
 bc. <txp:ais_feed feed="https://example.com/feed.xml">
    ...
@@ -88,7 +88,25 @@ h3(tag). ais_feed_item_link
 
 h4. Syntax
 
-p. TODO
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
+
+p. When used as a _single_ tag, the URL to the item (article) is returned, if provided. In this form, the attributes have no meaning and will be ignored.
+
+bc. <txp:ais_feed_item_link />
+
+p. When used as a _container_ tag, an anchor will be output with the URL to the item (article). The attributes may be used to adjust the output of the anchor.
+
+bc. <txp:ais_feed_item_link>
+   ...
+</txp:ais_feed_item_link>
+
+h4. Attributes
+
+p. The following attributes can be used with this tag in _container_ form.
+
+- @style="text"@ := Add inline style (discouraged).
+
+- @target="text"@ := Add a _target_ attribute to redirect the link to another frame/browser. 
 
 h3(tag). ais_feed_item_posted
 
