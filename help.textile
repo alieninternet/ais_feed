@@ -88,17 +88,17 @@ h3(tag). ais_feed_item_link
 
 h4. Syntax
 
-p. This tag is only useful when contained within an @ais_feed@ tag (see above).
-
-p. When used as a _single_ tag, the URL to the item (article) is returned, if provided. In this form, the attributes have no meaning and will be ignored.
+p. When used as a _single_ tag, the URL of the current item (article) is returned, if provided. In this form, the attributes have no meaning and will be ignored.
 
 bc. <txp:ais_feed_item_link />
 
-p. When used as a _container_ tag, an anchor will be output with the URL to the item (article). The attributes may be used to adjust the output of the anchor.
+p. When used as a _container_ tag, an anchor will be output with the URL of the current item (article). The attributes may be used to adjust the output of the anchor.
 
 bc. <txp:ais_feed_item_link>
    ...
 </txp:ais_feed_item_link>
+
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
 
 h4. Attributes
 
@@ -118,7 +118,11 @@ h3(tag). ais_feed_item_title
 
 h4. Syntax
 
-p. TODO
+p. Used only as a _single_ tag, this outputs the title of the current item (article).
+
+bc. <txp:ais_feed_item_title />
+
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
 
 h3(tag). ais_feed_item_xpath
 
