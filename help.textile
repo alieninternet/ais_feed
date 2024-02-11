@@ -128,7 +128,132 @@ h3(tag). ais_feed_item_xpath
 
 h4. Syntax
 
-p. TODO
+p. Used only as a _single_ tag, this allows you to perform an XPath query to return any value from within the XML feed. The context is relative to the current item (article).
+
+bc. <txp:ais_feed_item_xpath xpath="xpath_query" />
+
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
+
+p. More about this is discussed in the section, _Performing XPath queries_.
+
+h4. Attributes
+
+p. The following attribute must be used with this tag.
+
+- @xpath="xpath_query"@ := The XPath query string to execute.
+
+h2. Performing XPath queries
+
+h3. Overview
+
+p. With feed formats being so flexible and diverse, it would not be feasible for this plugin to support every possible extension and field beyond the most basic feed fields. Instead, it's possible to "query" any value or attribute available within the XML using a _XPath_ syntax.
+
+p. Many feeds these days provide application specific fields that cannot be covered by a generic plugin. One example of this is the feeds from YouTube, which include video-specific details. Another example would be feeds used for sharing products from a shop, which may include item pricing, product dimensions, etc.
+
+p. XPath is relatively easy to learn, however the syntax is beyond the scope of this documentation. Instead, the following are some fictional examples to give you an understanding of how to extract data from a feed.
+
+h3. Extracting data
+
+p. To extract data, use the _ais_feed_item_xpath_ tag. This tag allows you to specify an XPath query, which will be executed relative to the context of the current item at the time of parsing.
+
+p. Consider the following fictional Atom feed XML which contains extensions by some nonsensical application:
+
+bc. <?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:foo="http://example.com/xml/schemas/Foo">
+   <id>123456</id>
+   <title>Example feed title</title>
+   <link href="http://example.com/Foo/feed.xml" />
+   <updated>2024-02-11T18:30:02Z</updated>
+   <foo:bar>24680</foo:bar>
+   <entry>
+      <id>1</id>
+      <title>First example</title>
+      <link href="http://example.com/Foo/1" />
+      <updated>2024-02-06T09:32:54Z</updated>
+      <foo:baz qux="1st">First</foo:baz>
+      <foo:quux>
+         <foo:corge grault="Waldo" />
+      </foo:quux>
+   </entry>
+   <entry>
+      <id>2</id>
+      <title>Second example</title>
+      <link href="http://example.com/Foo/2" />
+      <updated>2024-02-11T18:30:02Z</updated>
+      <foo:baz qux="2nd">Second</foo:baz>
+      <foo:quux>
+         <foo:corge grault="Fred" />
+      </foo:quux>
+   </entry>
+   <entry>
+    <id>3</id>
+    <title>Third example</title>
+    <link href="http://example.com/Foo/3" />
+    <updated>2024-02-11T18:10:19Z</updated>
+    <foo:baz qux="3rd">Third</foo:baz>
+    <foo:quux>
+         <foo:corge grault="Plugh">Xyzzy</foo:corge>
+      </foo:quux>
+   </entry>
+</feed>
+
+p. To extract a simple value, you can address its location in the XML heirarchy with a familiar path format. As an example, to extracting the value of the @foo:baz@ tag (with expected values _First_, _Second_, and _Third_). For the sake of clarity, explicitly address the tag relative to the current item using @./@.
+
+bc. <txp:ais_feed_item_xpath xpath="./foo:baz" />
+
+p. To extract an attribute, you can address it in the XPath query using the "@" prefix. In the following example, the @grault@ attribute of @foo:corge@ is extracted. Notice how the nested XML tag is addressed in the query.
+
+bc. <txp:ais_feed_item_xpath xpath="./foo:quux/foo:corge/@grault" />
+
+p. Bringing it all together, combined with other tags, you could format the output as follows:
+
+bc. <txp:ais_feed feed="http://example.com/Foo/feed.xml">
+   <article id="foo_<txp:ais_feed_item_xpath xpath="./id" />">
+      <h2>
+         <txp:ais_feed_item_link><txp:ais_feed_item_title /></txp:ais_feed_item_link>
+      </h2>
+      <p><txp:ais_feed_item_xpath xpath="./foo:baz" /></p>
+      <ul>
+         <li>Grault = <txp:ais_feed_item_xpath xpath="./foo:quux/foo:corge/@grault /></li>
+         <li>Qux = <txp:ais_feed_item_xpath xpath="./foo:baz/@qux" /></li>
+      </ul>
+   </article>
+</txp:ais_feed>
+
+p. Which will result in the following output:
+
+bc. <article id="foo_1">
+   <h2>
+      <a href="http://example.com/Foo/1">First example</a>
+   </h2>
+   <p>First</p>
+   <ul>
+      <li>Grault = Waldo</li>
+      <li>Qux = 1st</li>
+   </ul>
+</article>
+<article id="foo_2">
+   <h2>
+      <a href="http://example.com/Foo/2">Second example</a>
+   </h2>
+   <p>Second</p>
+   <ul>
+      <li>Grault = Fred</li>
+      <li>Qux = 2nd</li>
+   </ul>
+</article>
+<article id="foo_3">
+   <h2>
+      <a href="http://example.com/Foo/3">Third example</a>
+   </h2>
+   <p>Third</p>
+   <ul>
+      <li>Grault = Plugh</li>
+      <li>Qux = 3rd</li>
+   </ul>
+</article>
+
+p. There is more you can do with XPath queries, including conditional queries based on the data within the XML, but this is beyond the scope of this documentation.
 
 h2. Troubleshooting
 
