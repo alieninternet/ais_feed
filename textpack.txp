@@ -4,6 +4,8 @@ ais_feed_malformed_xml => Malformed feed XML
 ais_feed_malformed_url => Invalid or malformed feed URL
 ais_feed_missing_simplexml => SimpleXML is missing from PHP
 ais_feed_nested => Feed syndication cannot be nested
+ais_feed_tag_missing_xpath => XPath query must be provided to tag <strong>{tag}</strong>
+ais_feed_tag_no_feed => Tag <strong>{tag}</strong> used outside of a feed context.
 ais_feed_unknown_type => Unable to determine feed type
 ais_feed_url_load_failed => Unable to load feed
 #@language de
@@ -11,6 +13,8 @@ ais_feed_malformed_xml => Fehlerhafte Feed-XML
 ais_feed_malformed_url => Ungültige oder fehlerhafte Feed-URL
 ais_feed_missing_simplexml => SimpleXML fehlt in PHP
 ais_feed_nested => Feed-Syndikation kann nicht verschachtelt sein
+ais_feed_tag_missing_xpath => Für das Tag <strong>{tag}</strong> muss eine XPath-Abfrage bereitgestellt werden
+ais_feed_tag_no_feed => Tag <strong>{tag}</strong> wird außerhalb eines Feed-Kontexts verwendet.
 ais_feed_unknown_type => Feed-Typ kann nicht bestimmt werden
 ais_feed_url_load_failed => Feed konnte nicht geladen werden
 #@language fr
@@ -18,6 +22,8 @@ ais_feed_malformed_xml => XML de flux mal formé
 ais_feed_malformed_url => URL de flux invalide ou mal formée
 ais_feed_missing_simplexml => SimpleXML est manquant dans PHP
 ais_feed_nested => La syndication de flux ne peut pas être imbriquée
+ais_feed_tag_missing_xpath => Une requête XPath doit être fournie pour baliser <strong>{tag}</strong>
+ais_feed_tag_no_feed => Balise <strong>{tag}</strong> utilisée en dehors d'un contexte de flux.
 ais_feed_unknown_type => Impossible de déterminer le type de flux
 ais_feed_url_load_failed => Impossible de charger le flux
 #@language nl
@@ -25,5 +31,7 @@ ais_feed_malformed_xml => Ongeldig geformatteerde feed XML
 ais_feed_malformed_url => Ongeldige of slecht geformatteerde feed-URL
 ais_feed_missing_simplexml => SimpleXML ontbreekt in PHP
 ais_feed_nested => Feed-syndicatie kan niet genest zijn
+ais_feed_tag_missing_xpath => XPath-query moet worden opgegeven om <strong>{tag}</strong> te taggen
+ais_feed_tag_no_feed => Tag <strong>{tag}</strong> gebruikt buiten een feedcontext.
 ais_feed_unknown_type => Kan feedtype niet bepalen
 ais_feed_url_load_failed => Kan feed niet laden

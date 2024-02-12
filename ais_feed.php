@@ -103,7 +103,11 @@ switch (txpinterface) {
 	    return ais_feed_state::getFeed()->getItemID();
 	}
 
-	// TODO: Output error
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_id']);
+	}
 	
 	return '';
     }
@@ -123,12 +127,23 @@ switch (txpinterface) {
 	), $atts));
 	
 	// This is only useful in a feed context
-	if (ais_feed_state::inFeed() &&
-	    isset($xpath)) {
-	    return parse($thing, ais_feed_state::getFeed()->testItemXPath(strval($xpath)));
+	if (ais_feed_state::inFeed()) {
+	    if (isset($xpath)) {
+		return parse($thing, ais_feed_state::getFeed()->testItemXPath(strval($xpath)));
+	    }
+	    
+	    // Output error if not in live mode
+	    if ($production_status !== 'live') {
+		echo gTxt('ais_feed_tag_missing_xpath',
+			  ['tag' => 'ais_feed_item_if_xpath']);
+	    }
 	}
 	
-	// TODO: Output error
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_if_xpath']);
+	}
 
 	return '';
     }
@@ -222,7 +237,11 @@ switch (txpinterface) {
 	    return parse($thing, false);
 	}
 	
-	// TODO: Output error
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_link']);
+	}
 
 	return '';
     }
@@ -253,9 +272,13 @@ switch (txpinterface) {
 	if (ais_feed_state::inFeed()) {
 	    return ais_feed_state::getFeed()->getItemTitle();
 	}
-
-	// TODO: Output error
 	
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_title']);
+	}
+
 	return '';
     }
 
@@ -274,12 +297,23 @@ switch (txpinterface) {
 	), $atts));
 	
 	// This is only useful in a feed context
-	if (ais_feed_state::inFeed() &&
-	    isset($xpath)) {
-	    return ais_feed_state::getFeed()->getItemXPath(strval($xpath));
+	if (ais_feed_state::inFeed()) {
+	    if (isset($xpath)) {
+		return ais_feed_state::getFeed()->getItemXPath(strval($xpath));
+	    }
+	    
+	    // Output error if not in live mode
+	    if ($production_status !== 'live') {
+		echo gTxt('ais_feed_tag_missing_xpath',
+			  ['tag' => 'ais_feed_item_xpath']);
+	    }
 	}
-
-	// TODO: Output error
+	
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_xpath']);
+	}
 
 	return '';
     }
