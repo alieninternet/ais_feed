@@ -82,6 +82,8 @@ h4. Attributes
 
 p. The following attributes can be used with this tag.
 
+- @cache="seconds"@ := The time in seconds to cache the feed. Defaults to @3600@ (one hour). Set this to a suitable time relative to how often your feed is expected to update, and how responsive you would like your Textpattern site to update. When set to @0@, caching is disable caching (not recommended outside of testing).
+
 - @feed="URL"@ := The URL of the feed (required).
 
 - @limit="integer"@ := The maximum number of items to return from the feed. If the feed contains less items than this number, only those items will be returned. If this is omitted, the entire feed will be fetched.

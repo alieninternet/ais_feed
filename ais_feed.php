@@ -38,13 +38,14 @@ switch (txpinterface) {
     function ais_feed(array $atts, ?string $thing = null): string
     {
 	extract(lAtts(array(
-	    'feed' => '',    // Feed URL
-	    'limit' => ''    // Maximum number of items to dump
+	    'cache' => '3600', // Cache time (default = 1 hours)
+	    'feed' => '',      // Feed URL
+	    'limit' => ''      // Maximum number of items to dump
 	), $atts));
 
 	if (isset($feed) &&
 	    !empty($feed)) {
-	    $feed = ais_feed::newFromURL($feed);
+	    $feed = ais_feed::newFromURL($feed, intval($cache));
 
 	    if (is_object($feed)) {
 		// Container mode?
@@ -664,16 +665,33 @@ abstract class ais_feed implements Iterator
      * @param  object $feedURL  The feed URL
      * @return ais_feed object
      */
-    public static function newFromURL(string $feedURL): ?ais_feed
+    public static function newFromURL(string $feedURL, int $cacheTime = 3600): ?ais_feed
     {
 	$errorMessage = '';
-	
-	// TODO: Caching / hold off time / etc.
-	
-	if (filter_var($feedURL, FILTER_VALIDATE_URL) !== false) {
-	    if (function_exists('simplexml_load_file')) {
-		$feedContent = file_get_contents($feedURL);
-		if ($feedContent !== false) {
+
+	if (function_exists('simplexml_load_file')) {
+	    if (filter_var($feedURL, FILTER_VALIDATE_URL) !== false) {
+		// Calculate a cache file name
+		$cacheFile = ($GLOBALS['tempdir'] . DIRECTORY_SEPARATOR . 'txp_ais_feed_' . md5($feedURL));
+		
+		// Do we have cached content? Is it fresh enough?
+		if (file_exists($cacheFile) && 
+		    ((filemtime($cacheFile) + $cacheTime) > time())) {
+		    // Good! Read in from file
+		    $feedContent = file_get_contents($cacheFile);
+		} else {
+		    // No. Load XML content directly from the URL
+		    $feedContent = file_get_contents($feedURL);
+		    
+		    // Store cache. The temporary file here is to avoid locks and partial concurrent reads if the write to the disk is slow
+		    $cacheFileTmp = ($cacheFile . '.' . substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 10));
+		    file_put_contents($cacheFileTmp, $feedContent, LOCK_EX);
+		    rename($cacheFileTmp, $cacheFile);
+		}
+		
+		if (isset($feedContent) &&
+		    is_string($feedContent) &&
+		    ($feedContent !== false)) {
 		    $feedXML = simplexml_load_string($feedContent);
 		    if ($feedXML !== false) {
 			// Check if this is an Atom feed
@@ -697,10 +715,10 @@ abstract class ais_feed implements Iterator
 		    $errorMessage = gTxt('ais_feed_url_load_failed');
 		}
 	    } else {
-		$errorMessage = gTxt('ais_feed_missing_simplexml');
+		$errorMessage = gTxt('ais_feed_malformed_url');
 	    }
 	} else {
-	    $errorMessage = gTxt('ais_feed_malformed_url');
+	    $errorMessage = gTxt('ais_feed_missing_simplexml');
 	}
 	
 	// Output any error message if we are not live
