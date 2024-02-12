@@ -158,7 +158,23 @@ h3(tag). ais_feed_item_posted
 
 h4. Syntax
 
-p. TODO
+p. This tag is used as a _single_ tag, returning the publication date of the current item in the feed. It is intentionally intended to mimic the @txp:posted@ tag used for Textpattern articles.
+
+bc. <txp:ais_feed_item_posted />
+
+p. This tag is only useful when contained within an @ais_feed@ tag (see above).
+
+h4. Attributes
+
+p. The following attributes can be used with this tag. Please see Textpattern tag reference for @txp:posted@ for more in-depth examples on how to use these attributes.
+
+- @calendar="calendar string"@ := A valid ICU calendar string (i.e. @chinese@).
+
+- @format="format string"@ := Override the default format provided in the Textpattern parameters panel with a valid _strftime_ format.
+
+- @gmt="boolean"@ := When true, output time in GMT, otherwise time will be output in local time.
+
+- @lang="ISO language code"@ := Format the time string with the specified language (locale).
 
 h3(tag). ais_feed_item_title
 

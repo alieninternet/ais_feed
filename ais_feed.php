@@ -93,7 +93,7 @@ switch (txpinterface) {
 	
 	return '';
     }
-    
+
     
     /**
      * Fetch a feed item ID
@@ -261,7 +261,44 @@ switch (txpinterface) {
      */
     function ais_feed_item_posted(array $atts, ?string $thing = null) : string
     {
-	return 'posted';
+	extract(lAtts(array(
+	    'calendar' => '', // Calendar type
+	    'format' => '',   // Explicit time format
+	    'gmt' => '',      // Use GMT? If false, use local time instead.
+	    'lang' => ''      // Language
+	), $atts));
+	
+	// This is only useful in a feed context
+	if (ais_feed_state::inFeed()) {
+	    $time = ais_feed_state::getFeed()->getItemTimePosted();
+	    
+	    // Fix language - set it to the default if it's not yet set
+	    if (!isset($lang)) {
+		$lang = $lang = LANG;
+	    }
+	    
+	    // If the calendar is prepared, append it properly on the language field
+	    if ($calendar) {
+		$lang = ($lang . '@calendar=' . $calendar);
+	    }
+	    
+	    // Set the date format to the default if it is not set
+	    if (!isset($format) || 
+		empty($format)) {
+		// This $dateformat is a global from Textpattern
+		$format = $dateformat;
+	    }
+	    
+	    return safe_strftime($format, $time, $gmt, $lang);
+	}
+	
+	// Output error if not in live mode
+	if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_tag_no_feed',
+		      ['tag' => 'ais_feed_item_posted']);
+	}
+	
+	return '';
     }
     
     
@@ -350,6 +387,7 @@ abstract class ais_feed implements Iterator
     protected SimpleXMLElement $feedXML;
     protected ?string $title = null;
     protected ?string $itemID = null;
+    protected ?int $itemTimePosted = null;
     protected ?string $itemTitle = null;
     protected ?string $itemURL = null;
     protected array $xpathCache = [];
@@ -390,6 +428,12 @@ abstract class ais_feed implements Iterator
      * Fetch the current item's ID
      */
     abstract protected function fetchItemID(): string;
+
+    
+    /**
+     * Fetch the current item's posted time (relative to the local timezone)
+     */
+    abstract protected function fetchItemTimePosted(): int;
 
     
     /**
@@ -453,6 +497,19 @@ abstract class ais_feed implements Iterator
 	return $this->itemID;
     }
 
+    
+    /**
+     * Get the current item's title (relative to local timezone)
+     */
+    public function getItemTimePosted(): int
+    {
+	if (!isset($this->itemTimePosted)) {
+	    $this->itemTimePosted = $this->fetchItemTimePosted();
+	}
+
+	return $this->itemTimePosted;
+    }
+    
     
     /**
      * Get the current item's title
@@ -593,6 +650,7 @@ abstract class ais_feed implements Iterator
     public function resetItemVars()
     {
 	$this->itemID = null;
+	$this->itemTimePosted = null;
 	$this->itemTitle = null;
 	$this->itemURL = null;
 	$this->xpathCache = [];
@@ -717,6 +775,25 @@ class ais_feed_atom extends ais_feed
 
     
     /**
+     * Fetch the current item's posted time (relative to the local timezone)
+     */
+    protected function fetchItemTimePosted(): int
+    {
+	$timeString = $this->fetchItemXPath('./atom:published');
+	
+	if (is_string($timeString)) {
+	    $time = strtotime($timeString);
+	    
+	    if (is_int($time)) {
+		return $time;
+	    }
+	}
+	
+	return -1;
+    }
+
+    
+    /**
      * Fetch the current item's title
      */
     protected function fetchItemTitle(): string
@@ -799,6 +876,25 @@ class ais_feed_rss extends ais_feed
     protected function fetchItemID(): string
     {
 	return $this->fetchItemXPath('./guid');
+    }
+
+    
+    /**
+     * Fetch the current item's posted time (relative to the local timezone)
+     */
+    protected function fetchItemTimePosted(): int
+    {
+	$timeString = $this->fetchItemXPath('./pubDate');
+	
+	if (is_string($timeString)) {
+	    $time = strtotime($timeString);
+	    
+	    if (is_int($time)) {
+		return $time;
+	    }
+	}
+	
+	return -1;
     }
 
     
