@@ -41,51 +41,56 @@ switch (txpinterface) {
 	    'feed' => '',    // Feed URL
 	    'limit' => ''    // Maximum number of items to dump
 	), $atts));
-	
-	$feed = ais_feed::newFromURL($feed);
 
-	if (is_object($feed)) {
-	    // Container mode?
- 	    if (isset($thing)) {
-		if (ais_feed_state::inFeed()) {
-		    if ($production_status !== 'live') {
-			echo gTxt("ais_feed_nested");
+	if (isset($feed) &&
+	    !empty($feed)) {
+	    $feed = ais_feed::newFromURL($feed);
+
+	    if (is_object($feed)) {
+		// Container mode?
+		if (isset($thing)) {
+		    if (ais_feed_state::inFeed()) {
+			if ($production_status !== 'live') {
+			    echo gTxt("ais_feed_nested");
+			}
+			return parse($thing, false);
 		    }
-		    return parse($thing, false);
-		}
-
-		// Load feed into global state
-		ais_feed_state::setFeed($feed);
-		$result = '';
-		
-		if (is_numeric($limit)) {
-		    $limit = intval($limit);
-		}
-
-		// Loop through articles
-		foreach ($feed as $article) {
-		    $result .= parse($thing, true);
 		    
-		    if (is_int($limit)) {
-			--$limit;
-			if ($limit == 0) {
-			    break;
+		    // Load feed into global state
+		    ais_feed_state::setFeed($feed);
+		    $result = '';
+		    
+		    if (is_numeric($limit)) {
+			$limit = intval($limit);
+		    }
+		    
+		    // Loop through articles
+		    foreach ($feed as $article) {
+			$result .= parse($thing, true);
+			
+			if (is_int($limit)) {
+			    --$limit;
+			    if ($limit == 0) {
+				break;
+			    }
 			}
 		    }
+		    
+		    // Unset the feed to restore the state
+		    ais_feed_state::unsetFeed();
+		    
+		    return $result;
 		}
-
-		// Unset the feed to restore the state
-		ais_feed_state::unsetFeed();
 		
-		return $result;
+		// Single tag mode - return the feed's name (title)
+		return $feed->getTitle();
+	    } else if (isset($thing)) {
+		return parse($thing, false);
 	    }
-	
-	    // Single tag mode - return the feed's name (title)
-	    return $feed->getTitle();
-	} else if (isset($thing)) {
-	    return parse($thing, false);
+	} else if ($production_status !== 'live') {
+	    echo gTxt('ais_feed_missing_feed_url');
 	}
-    
+	
 	return '';
     }
     
