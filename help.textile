@@ -10,6 +10,7 @@ h2. List of features
 * Allow querying any field in the feed with XPath queries
 * Feed data can be formatted as needed
 * No dependencies - no need for libraries, making installation simple
+* Caching of feeds (file based)
 
 h2. Minimum requirements
 
@@ -652,6 +653,14 @@ p. If the disclaimer of warranty and limitation of liability provided above cann
 
 p. END OF TERMS AND CONDITIONS
 
-h2. Author contact
+h2. History
+
+h3. Version 0.1
+
+p. Initial version.
+
+h2. Author
+
+p. Originally written by Ashley Butcher (Alien Internet Services.
 
 p. To contact the author to suggest improvements, notify of bugs, or anything else, please use the issue tracker at ["$":https://github.com/alieninternet/ais_feed/issues].
