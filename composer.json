@@ -3,7 +3,7 @@
   "description": "Feed syndication for Textpattern",
   "keywords": ["textpattern", "plugin", "rss", "multiple", "atom"],
   "homepage": "https://github.com/alieninternet/ais_feed",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-or-later",
   "type": "textpattern-plugin",
   "support": {
     "issues": "https://github.com/alieninternet/ais_feed/issues",
