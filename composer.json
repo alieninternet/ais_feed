@@ -3,13 +3,22 @@
   "description": "Feed syndication for Textpattern",
   "keywords": ["textpattern", "plugin", "rss", "multiple", "atom"],
   "homepage": "https://github.com/alieninternet/ais_feed",
+  "authors": [
+    {
+      "name": "Ashley Butcher (Alien Internet Services)",
+      "email": "ashley@alien.net.au",
+      "role": "Developer"
+    }
+  ],
   "license": "GPL-3.0-or-later",
   "type": "textpattern-plugin",
   "support": {
     "issues": "https://github.com/alieninternet/ais_feed/issues",
-    "source": "https://github.com/alieninternet/ais_feed"
+    "source": "https://github.com/alieninternet/ais_feed",
+    "docs": "https://github.com/alieninternet/ais_feed/blob/main/help.textile"
   },
   "require": {
+    "php": ">=7.4",
     "textpattern/lock": ">=4.8.0 <=4.8.8",
     "textpattern/installer": "*"
   }
