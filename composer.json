@@ -15,7 +15,7 @@
   "support": {
     "issues": "https://github.com/alieninternet/ais_feed/issues",
     "source": "https://github.com/alieninternet/ais_feed",
-    "docs": "https://github.com/alieninternet/ais_feed/blob/main/help.textile"
+    "docs": "https://github.com/alieninternet/ais_feed/blob/HEAD/help.textile"
   },
   "require": {
     "php": ">=7.4",
