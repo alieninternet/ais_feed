@@ -10,7 +10,7 @@
     "source": "https://github.com/alieninternet/ais_feed"
   },
   "require": {
-    "textpattern/lock": ">=4.8.0",
+    "textpattern/lock": ">=4.8.0 <=4.8.8",
     "textpattern/installer": "*"
   }
 }
