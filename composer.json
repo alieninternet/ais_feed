@@ -1,7 +1,7 @@
 {
   "name": "alieninternet/ais_feed",
   "description": "Feed syndication for Textpattern",
-  "keywords": ["textpattern", "plugin", "rss", "multiple", "atom"],
+  "keywords": ["textpattern", "plugin", "rss", "atom"],
   "homepage": "https://github.com/alieninternet/ais_feed",
   "authors": [
     {
