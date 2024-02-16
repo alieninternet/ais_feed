@@ -18,7 +18,7 @@
  *
  * 
  * @author	Ashley Butcher
- * @copyright   Copyright (c) 2024 Ashley Butcher (Alien Internet Services)
+ * @copyright   Copyright (c) 2024 Alien Internet Services
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License version 3
  * @version	0.2
  * @link	https://github.com/alieninternet/ais_feed/
