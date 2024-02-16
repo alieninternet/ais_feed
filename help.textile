@@ -2,7 +2,7 @@ h1. ais_feed
 
 p. Feed syndication for Textpattern.
 
-p. *Version:* 0.1
+p. *Version:* 0.2
 
 h2. List of features
 
@@ -654,6 +654,10 @@ p. If the disclaimer of warranty and limitation of liability provided above cann
 p. END OF TERMS AND CONDITIONS
 
 h2. History
+
+h3. Version 0.2
+
+p. TODO
 
 h3. Version 0.1
 

@@ -2,7 +2,6 @@
 /**
  * ais_feed - Feed syndication for Textpattern
  * 
- * Copyright (C) 2024 Ashley Butcher (Alien Internet Services)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,10 +16,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * @author	Ashley Butcher (Alien Internet Services)
- * @copyright   Copyright (C) 2024 Ashley Butcher (Alien Internet Services)
+ * 
+ * @author	Ashley Butcher
+ * @copyright   Copyright (c) 2024 Ashley Butcher (Alien Internet Services)
  * @license     https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License version 3
- * @version	0.1
+ * @version	0.2
  * @link	https://github.com/alieninternet/ais_feed/
  */
 
