@@ -12,7 +12,7 @@
 
 The following example shows how the feed can iterate over a feed, returning at most 5 items, output a custom field, and perform simple logic based on an XPath query.
 
-```
+```html
 <txp:ais_feed feed="http://example.com/feed.xml" limit="5">
    <article class="article feed">
       <h2>
