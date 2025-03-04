@@ -1,4 +1,4 @@
-# ais_feed - A simple feed syndication plugin for Textpattern.
+# ais_feed - A simple feed syndication plugin for Textpattern
 
 ## Features
 
