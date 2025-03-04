@@ -31,4 +31,4 @@ The following example shows how the feed can iterate over a feed, returning at m
 </txp:ais_feed>
 ```
 
-Full help is available [here](help.textile), as well as included with the plugin, and includes tag instructions and practical examples.
+Full instructions are available [here](help.textile), as well as included with the plugin, and includes tag instructions and practical examples.
