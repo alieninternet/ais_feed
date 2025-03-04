@@ -665,6 +665,6 @@ p. Initial version.
 
 h2. Author
 
-p. Originally written by Ashley Butcher (Alien Internet Services.
+p. Originally written by Ashley Butcher (Alien Internet Services).
 
 p. To contact the author to suggest improvements, notify of bugs, or anything else, please use the issue tracker at ["$":https://github.com/alieninternet/ais_feed/issues].
