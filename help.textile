@@ -657,7 +657,9 @@ h2. History
 
 h3. Version 0.2
 
-p. TODO
+p. Fixes:
+
+* Code quality fixes
 
 h3. Version 0.1
 
