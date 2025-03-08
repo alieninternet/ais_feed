@@ -1,5 +1,7 @@
 # ais_feed - A simple feed syndication plugin for Textpattern
 
+This plugin allows you to ingest an external feed for syndication within your Textpattern site.
+
 ## Features
 
 * Support for Atom and RSS feeds
