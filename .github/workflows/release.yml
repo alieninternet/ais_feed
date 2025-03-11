@@ -1,0 +1,62 @@
+# =============================================================================
+# A very simple build and release example using alieninternet/build-txpplugin-txt
+# =============================================================================
+#
+# Instructions can be found here:
+#  <https://www.github.com/alieninternet/build_txpplugin_txt/examples/simple.md>
+#
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Metadata:
+# @author     Ashley Butcher
+# @copyright  Copyright (c) 2025 Alien Internet Services
+# @license    https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License version 3
+# @version    v1
+# @link	      https://github.com/alieninternet/build-txpplugin-txt
+# =============================================================================
+
+name: Release Textpattern Plugin Package (text format)
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      #
+      # Check out this repository
+      #
+      - name: Check-out repository
+        uses: actions/checkout@v4
+
+      #
+      # Build the plugin_v.txt package and an sha256sum hash file, and publish it to the release.
+      #
+      # Parameters:
+      #   folder: The folder where the plugin source files live, defaults to '.' in this case (the root of the repository)
+      #   release_files: When set to true, files will be published to the release triggering the build (default is false)
+      #
+      # For more information on available parameters, see https://github.com/alieninternet/build-txpplugin-txt/blob/main/README.md
+      #
+      - name: Build and release package
+        uses: alieninternet/build-txpplugin-txt@v1
+        with:
+          folder: '.'
+          release_files: 'true'
